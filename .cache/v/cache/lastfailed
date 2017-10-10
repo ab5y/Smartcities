@@ -1,0 +1,4 @@
+{
+  "server/tests.py::TestMyViewFailureCondition::test_failing_view": true, 
+  "server/tests.py::TestMyViewSuccessCondition::test_passing_view": true
+}
