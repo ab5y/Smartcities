@@ -32,10 +32,6 @@ def main(argv=sys.argv):
 
     session_factory = get_session_factory(engine)
 
-    
-    # model = MyModel(name='one', value=1)
-    # dbsession.add(model)
-
     files = ['States', 'Cities', 'Projects', 'SubProjects', 'FinSources', 'Parties']
 
     import csv
@@ -75,5 +71,3 @@ def main(argv=sys.argv):
 
                         elif file == 'Parties':
                             dbsession.add(Party(name=row[0]))
-                            
-                        # print ', '.join(row)

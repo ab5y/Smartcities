@@ -1,6 +1,5 @@
 from sqlalchemy import (
 	Column,
-	Index,
 	Integer,
 	Text,
 )
@@ -11,4 +10,3 @@ class Party(Base):
 	__tablename__ = 'parties'
 	id = Column(Integer, primary_key=True)
 	name = Column(Text)
-	
