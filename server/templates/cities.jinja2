@@ -1,0 +1,36 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col mx-auto">
+			<button 
+				class="btn btn-secondary dropdown-toggle" 
+				type="button"
+				id="citiesDDMenuBtn"
+				data-toggle="dropdown"
+				aria-haspopup="true"
+				aria-expanded="false">
+					Select City
+			</button>
+			<div class="dropdown-menu"
+				aria-labelledby="citiesDDMenuBtn">
+				<!-- jinja2 for loop -->
+				{% for city in cities %}
+					<a class="dropdown-item" href="#" onClick="getImage({{city.id}})">{{city.name}}</a>
+					<script type="text/javascript">
+						function getImage(city_id) {
+							$('#city_image').attr("src", '{{request.static_url('server:static/cities/')}}' + city_id.toString() +'.jpg');
+						}
+					</script>
+				{% endfor %}
+			</div>
+		</div> <!-- end cities col div -->
+
+		<div class="col-8">
+			<img id="city_image" src="">
+		</div>
+
+	</div> <!-- end row div -->
+</div>
+{% endblock content %}

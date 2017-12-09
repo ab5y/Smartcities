@@ -19,4 +19,4 @@ class ProjectFinanceSource(Base):
 	details = Column(Text)
 
 	source = relationship('FinanceSource', order_by='FinanceSource.id', back_populates='projectfinancesources')
-	project = relationship('Project', order_by='Project.id', back_populates='projectfinancesources')
+	# project = relationship('Project', order_by='Project.id', back_populates='projectfinancesources')

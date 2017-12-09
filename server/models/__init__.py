@@ -8,11 +8,14 @@ import zope.sqlalchemy
 # from .mymodel import MyModel  # flake8: noqa
 from .state import State
 from .city import City
+from .citydetail import CityDetail
+from .citydetailtype import CityDetailType
 from .projectcategory import ProjectCategory
 from .projectsubcategory import ProjectSubCategory
 from .financesource import FinanceSource
 from .party import Party
 from .project import Project
+from .projectfinancesource import ProjectFinanceSource
 
 # run configure_mappers after defining all of the models to ensure
 # all relationships can be setup

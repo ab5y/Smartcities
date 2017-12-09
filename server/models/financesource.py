@@ -15,3 +15,5 @@ class FinanceSource(Base):
 	__tablename__ = 'financesources'
 	id = Column(Integer, primary_key=True)
 	name = Column(Text)
+
+	projectfinancesources = relationship('ProjectFinanceSource', order_by='ProjectFinanceSource.id', back_populates='source')

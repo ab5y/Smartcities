@@ -3,7 +3,7 @@ from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
-# from ..models import MyModel
+from ..models import *
 
 
 @view_config(route_name='home', renderer='../templates/home.jinja2')
@@ -15,6 +15,15 @@ def my_view(request):
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'one': 'one', 'project': 'server'}
+
+@view_config(route_name='cities', renderer='../templates/cities.jinja2')
+def cities(request):
+    try:
+        query = request.dbsession.query(City)
+        cities_li = query.all()
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+    return {'cities': cities_li}
 
 
 db_err_msg = """\
