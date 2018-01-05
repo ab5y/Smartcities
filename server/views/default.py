@@ -1,10 +1,12 @@
+import json
+
 from pyramid.response import Response
 from pyramid.view import view_config
 
 from sqlalchemy.exc import DBAPIError
 
 from ..models import *
-
+from ..services import ProjectService
 
 @view_config(route_name='home', renderer='../templates/home.jinja2')
 def my_view(request):
@@ -25,6 +27,13 @@ def cities(request):
         return Response(db_err_msg, content_type='text/plain', status=500)
     return {'cities': cities_li}
 
+@view_config(route_name='projects', renderer='../templates/projects.jinja2')
+def projects(request):
+    try:
+        data = ProjectService(request).get_projects_treemap_json()
+    except DBAPIError:
+        return Response(db_err_msg, content_type='text/plain', status=500)
+    return {'data': json.dumps(data)}
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem

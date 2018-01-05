@@ -14,3 +14,6 @@ class State(Base):
 	name = Column(Text)
 
 	cities = relationship('City', order_by='City.id', back_populates='state')
+
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}

@@ -17,3 +17,6 @@ class ProjectSubCategory(Base):
 
 	category = relationship('ProjectCategory', order_by='ProjectCategory.id', back_populates='subcategories')
 	projects = relationship('Project', order_by='Project.id', back_populates='subcategory')
+
+	def as_dict(self):
+		return {c.name: getattr(self, c.name) for c in self.__table__.columns}

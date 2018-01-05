@@ -16,6 +16,7 @@ class Project(Base):
 	id = Column(Integer, primary_key=True)
 	name = Column(Text)
 	rank = Column(Integer)
+	round = Column(Text)
 	city_id = Column(Integer, ForeignKey('cities.id'), nullable=False)
 	category_id = Column(Integer, ForeignKey('projectcategories.id'), nullable=False)
 	subcategory_id = Column(Integer, ForeignKey('projectsubcategories.id'), nullable=False)

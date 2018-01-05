@@ -1,0 +1,55 @@
+{% extends "layout.jinja2" %}
+
+{% block content %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+	google.charts.load('current', {'packages':['treemap']});
+	google.charts.setOnLoadCallback(initialize);
+	
+	function drawChart() {
+		var data = google.visualization.arrayToDataTable({{ data|safe }});
+
+		tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
+
+		tree.draw(data, {
+			minColor: '#f00',
+			midColor: '#ddd',
+			maxColor: '#0d0',
+			headerHeight: 15,
+			fontColor: 'black',
+			showScale: true
+		});
+
+	}
+	function initialize () {
+		$("#project_opt").click(function() {
+			drawChart();
+		});
+	}
+</script>
+
+<div class="container">
+	<div class="row">
+		<div class="col mx-auto">
+			<button 
+				class="btn btn-secondary dropdown-toggle" 
+				type="button"
+				id="projectsDDMenuBtn"
+				data-toggle="dropdown"
+				aria-haspopup="true"
+				aria-expanded="false">
+					Select City
+			</button>
+			<div class="dropdown-menu" aria-labelledby="projectsDDMenuBtn">
+				<a class="dropdown-item" href="#" id="project_opt">Projects</a>
+			</div>
+		</div> <!-- end cities col div -->
+
+		<div class="col-8">
+			<div id="chart_div" style="width: 900px; height: 500px;"></div>
+		</div>
+
+	</div> <!-- end row div -->
+</div>
+{% endblock content %}
