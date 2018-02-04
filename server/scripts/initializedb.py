@@ -38,15 +38,15 @@ def main(argv=sys.argv):
     import csv
     import psycopg2
 
-    conn = psycopg2.connect("host='localhost' port='5432' dbname='smartcities'")
-    curr = conn.cursor()
+    # conn = psycopg2.connect("host='localhost' port='5432' dbname='smartcities'")
+    # curr = conn.cursor()
 
     __location__ = os.path.realpath(os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
     if run_script == 1:
         print (__location__)
         for file in files:
-            with open(__location__ + '\\' + file + '.csv', 'rb') as csvfile:
+            with open(__location__ + '\\' + file + '.csv', 'rt') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
                 for row in spamreader:
                     if row:
@@ -77,7 +77,7 @@ def main(argv=sys.argv):
 
     if run_script == 2:
         # Project data upload
-        with open(__location__ + '\\' + 'ProjectsData.csv', 'rb') as csvfile:
+        with open(__location__ + '\\' + 'ProjectsData.csv', 'rt') as csvfile:
             spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
             next(spamreader, None) # Skip the headers
             for row in spamreader:
