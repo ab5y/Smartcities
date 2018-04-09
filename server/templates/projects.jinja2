@@ -7,44 +7,64 @@
 	google.charts.load('current', {'packages':['treemap']});
 	google.charts.setOnLoadCallback(initialize);
 	
-	function drawChart() {
-		var data = google.visualization.arrayToDataTable({{ data|safe }});
+	function drawChart(data) {
+		var data = google.visualization.arrayToDataTable(data);
 
 		tree = new google.visualization.TreeMap(document.getElementById('chart_div'));
 
-		tree.draw(data, {
-			minColor: '#f00',
-			midColor: '#ddd',
-			maxColor: '#0d0',
+		var options = {
+			maxDepth: 1,
+			maxPostDepth: 2,
+			minHighlightColor: '#8c6bb1',
+			midHighlightColor: '#9ebcda',
+			maxHighlightColor: '#edf8fb',
+			minColor: '#009688',
+			midColor: '#f7f7f7',
+			maxColor: '#ee8100',
 			headerHeight: 15,
-			fontColor: 'black',
-			showScale: true
-		});
+			showScale: true,
+			height: 500,
+			useWeightedAverageForAggregation: true
+		};
+
+		tree.draw(data, options);
 
 	}
 	function initialize () {
-		$("#project_opt").click(function() {
-			drawChart();
+		projectsData = {{ data_projects|safe }};
+		phasesData = {{ data_phases|safe }};
+		statesData = {{ data_states|safe }};
+		citiesData = {{ data_cities|safe }};
+		$("#selectFilter").change(function() {
+			var optionSelected = $("option:selected", this);
+			if (this.value == 1)
+				drawChart(projectsData);
+			else if (this.value == 2)
+				drawChart(phasesData);
+			else if (this.value == 3)
+				drawChart(statesData);
+			else if (this.value == 4)
+				drawChart(citiesData);
 		});
 	}
 </script>
 
 <div class="container">
 	<div class="row">
-		<div class="col mx-auto">
-			<button 
-				class="btn btn-secondary dropdown-toggle" 
-				type="button"
-				id="projectsDDMenuBtn"
-				data-toggle="dropdown"
-				aria-haspopup="true"
-				aria-expanded="false">
-					Select City
-			</button>
-			<div class="dropdown-menu" aria-labelledby="projectsDDMenuBtn">
-				<a class="dropdown-item" href="#" id="project_opt">Projects</a>
+		<div class="col">
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<label class="input-group-text input-group-addon" for="selectFilter">Filter</label>
+				</div>
+				<select class="custom-select" id="selectFilter">
+					<option selected>Choose...</option>
+					<option value="1" id="project_opt">Projects</option>
+					<option value="2">Phase</option>
+					<option value="3">State</option>
+					<option value="4">City</option>
+				</select>
 			</div>
-		</div> <!-- end cities col div -->
+		</div>
 
 		<div class="col-8">
 			<div id="chart_div" style="width: 900px; height: 500px;"></div>

@@ -30,10 +30,18 @@ def cities(request):
 @view_config(route_name='projects', renderer='../templates/projects.jinja2')
 def projects(request):
     try:
-        data = ProjectService(request).get_projects_treemap_json()
+        dataProjects = ProjectService(request).get_projects_treemap_json()
+        dataPhases = ProjectService(request).get_phases_treemap_json()
+        dataStates = ProjectService(request).get_states_treemap_json()
+        dataCities = ProjectService(request).get_cities_treemap_json()
     except DBAPIError:
         return Response(db_err_msg, content_type='text/plain', status=500)
-    return {'data': json.dumps(data)}
+    return {
+                'data_projects': json.dumps(dataProjects),
+                'data_phases': json.dumps(dataPhases),
+                'data_states': json.dumps(dataStates),
+                'data_cities': json.dumps(dataCities)
+            }
 
 db_err_msg = """\
 Pyramid is having a problem using your SQL database.  The problem
